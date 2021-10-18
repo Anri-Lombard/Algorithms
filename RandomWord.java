@@ -4,6 +4,16 @@ import edu.princeton.cs.algs4.StdRandom;
 
 public class RandomWord {
     public static void main(String[] args) {
-        System.out.println("Random World");
+        String[] strings = StdIn.readAllStrings();
+        String word, chosenWord;
+        chosenWord = StdIn.readString();
+
+        while (!StdIn.isEmpty()) {
+            word = StdIn.readString();
+            if (StdRandom.bernoulli(strings.length)) {
+                chosenWord = word;
+            }
+        }
+        StdOut.print(chosenWord);
     }
 }
