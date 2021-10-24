@@ -4,7 +4,11 @@ import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation {
     // creates n-by-n grid, with all sites initially blocked
-    public Percolation(int n)
+    public Percolation(int n) {
+        if (n <= 0) {
+            throw new IllegalArgumentException();
+        }
+    }
 
     // opens the site (row, col) if it is not open already
     public void open(int row, int col)
@@ -22,5 +26,9 @@ public class Percolation {
     public boolean percolates()
 
     // test client (optional)
-    public static void main(String[] args)
+    public static void main(String[] args) {
+        int input1 = Integer.parseInt(args[0]);
+        int input2 = Integer.parseInt(args[1]);
+        
+    }
 }
