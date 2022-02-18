@@ -2,6 +2,14 @@ import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
+/**
+ * The {@code PercolationStats} class provides methods
+ * for creating percolation system with two WeightedQuickUnion Data Structures
+ * which track opened blocks, add them to components,
+ * check whether block is full or system percolates.
+ *
+ * @author Anri Lombard
+ */
 public class Percolation {
     private boolean [] sites;
     private WeightedQuickUnionUF uf;

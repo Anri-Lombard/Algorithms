@@ -16,11 +16,34 @@ public class PercolationStats {
     private final double mean;
     private final double stddev;
 
-    // perform independent trials on an n-by-n grid
+    /**
+     * Perform independent trials on an n-by-n grid.
+     *
+     * @param n width of the grid
+     * @param trials number of independent trials
+     */
     public PercolationStats(int n, int trials) {
-        if (n <= 0 || trials <= 0) {
+        if (n <= 0 || trials <= 0) 
             throw new IllegalArgumentException();
+        
+        this.trials = trials;
+        arrFractionOfOpenSites = new double[trials];
+
+        for (int t=0; t<trials; t++) {
+            Percolation perc = new Percolation(n);
+            while (!perc.percolates()) {
+                int row = 0, col = 0;
+                do {
+                    row = StdRandom.uniform(1, n+1);
+                    col = StdRandom.uniform(1, n+1);
+                    // while site not blocked
+                } while (!perc.isOpen(row, col));
+                perc.open(row, col);
+            }
+            arrFractionOfOpenSites[t] = (double) perc.numberOfOpenSites() / (n*n);
         }
+        mean = StdStats.mean(arrFractionOfOpenSites);
+        stddev = StdStats.stddev(arrFractionOfOpenSites);
     }
 
      /**
@@ -70,9 +93,9 @@ public class PercolationStats {
         int n = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
         PercolationStats newPercStats = new PercolationStats(n, trials);
-        StdOut.println("mean                    = " + newPercStats.mean());
-        StdOut.println("stddev                  = " + newPercStats.stddev());
-        StdOut.println("95% confidence interval = ["
+        System.out.println("mean                    = " + newPercStats.mean());
+        System.out.println("stddev                  = " + newPercStats.stddev());
+        System.out.println("95% confidence interval = ["
                 + newPercStats.confidenceLo() + ", "
                 + newPercStats.confidenceHi() + "]");
     } 
